@@ -6,7 +6,7 @@ import (
 	"or/o"
 )
 
-func main() {
+func test2() {
 	pnr := o.Pnr{}
 	pnr.AirSegments = append(pnr.AirSegments, o.AirSegment{})
 	pnr.AirSegments[0].IsPassive = true

@@ -1,16 +1,10 @@
 package main
 
-import (
-
-	"or/o"
-)
-
-var listValue []int
-var pnr o.Pnr
+import "fmt"
 
 func main() {
-
-	
+	fmt.Print("test")
+	TestNow()
 }
 
 // o.Country.Hemisphere.Name
