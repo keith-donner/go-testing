@@ -1,4 +1,4 @@
-package o
+package util
 
 import (
 	"fmt"
