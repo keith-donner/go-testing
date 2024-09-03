@@ -6,21 +6,11 @@ import (
 )
 
 func TestNow() {
-	intSlice := []int{5, 3, 4, 1, 2}
-	fmt.Println("Original int slice:", intSlice)
 
-	list.Sort(intSlice, false)
-	fmt.Println("Sorted int slice (ascending):", intSlice)
+	m := map[string]int{"a": 1, "b": 2, "c": 3}
+	list.AddToMap(m, "test", 2)
+	fmt.Print(m)
 
-	list.Sort(intSlice, true)
-	fmt.Println("Sorted int slice (descending):", intSlice)
+	fmt.Print(m)
 
-	stringSlice := []string{"banana", "apple", "cherry"}
-	fmt.Println("Original string slice:", stringSlice)
-
-	list.Sort(stringSlice, false)
-	fmt.Println("Sorted string slice (ascending):", stringSlice)
-
-	list.Sort(stringSlice, true)
-	fmt.Println("Sorted string slice (descending):", stringSlice)
 }
