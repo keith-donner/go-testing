@@ -277,29 +277,39 @@ func Sort[T Comparable](slice []T, reverse bool) {
 	sort.Slice(slice, sortFunc)
 }
 
-// ExtractSlice takes an interface{} containing a slice and returns the slice as a type-specific value.
-func ExtractSlice(sliceInterface interface{}) interface{} {
-	v := reflect.ValueOf(sliceInterface)
+/*
+make sure to include the map or slice return type
 
-	if v.Kind() != reflect.Slice {
-		panic("provided interface does not contain a slice")
+int slice: mergedSlice := Merge(slice1, slice2).([]int)
+
+string slice: mergedSlice := Merge(slice1, slice2).([]string)
+
+string map: mergedMap := Merge(map1, map2).(map[string]string)
+
+int map: mergedMap := Merge(map1, map2).(map[string]int)
+*/
+func Merge(v1, v2 interface{}) interface{} {
+	if reflect.TypeOf(v1) != reflect.TypeOf(v2) {
+		panic("Cannot merge values of different types")
 	}
 
-	// Create a new slice of the same type and length
-	newSlice := reflect.MakeSlice(v.Type(), v.Len(), v.Cap())
-	reflect.Copy(newSlice, v)
-
-	return newSlice.Interface()
+	switch v1.(type) {
+	case []int:
+		slice1 := v1.([]int)
+		slice2 := v2.([]int)
+		return append(slice1, slice2...)
+	case []string:
+		slice1 := v1.([]string)
+		slice2 := v2.([]string)
+		return append(slice1, slice2...)
+	case map[interface{}]interface{}:
+		map1 := v1.(map[interface{}]interface{})
+		map2 := v2.(map[interface{}]interface{})
+		for key, value := range map2 {
+			map1[key] = value
+		}
+		return map1
+	default:
+		panic("Unsupported type for merging")
+	}
 }
-
-// Clear resets the slice or map to its zero values.
-// func learT any T {
-// 	switch v := any(data).(type) {
-// 	case []int:
-// 			return any([]int{}).(T)
-// 	case map[string]int:
-// 			return any(map[string]int{}).(T)
-// 	default:
-// 			return data
-// 	}
-// }
